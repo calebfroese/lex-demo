@@ -1,11 +1,11 @@
 <div class="chat-container d-flex flex-column">
-  <section>
-    <ng-container *ngFor="let message of messages">
+  <section class="d-flex justify-content-end flex-column">
+    <span *ngFor="let message of messages">
       <div class="clear"></div>
       <div [ngClass]="{'from-them': !message.local, 'from-me': message.local}">
         <p>{{ message.message }}</p>
       </div>
-    </ng-container>
+    </span>
   </section>
   <form [formGroup]="form">
     <div class="input-group">
