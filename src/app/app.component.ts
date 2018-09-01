@@ -8,6 +8,7 @@ import * as AWS from 'aws-sdk';
 })
 export class AppComponent implements OnInit {
   lex: AWS.LexRuntime;
+  boxUserId = 'chatbox-lex' + Date.now();
   response = '';
   input = '';
   sessionAttributes: any = {};
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
         botAlias: '$LATEST',
         botName: 'ProductOrdering',
         inputText: message,
-        userId: 'chatbot-lex' + Date.now(),
+        userId: this.boxUserId,
         sessionAttributes: this.sessionAttributes
       },
       (err, data) => {
