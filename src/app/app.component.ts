@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   sessionAttributes: any = {};
   messages: Message[] = [];
   form: FormGroup;
+  placeholder = 'I have an amazing app idea';
 
   constructor(public fb: FormBuilder) {
     this.form = this.fb.group({
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   chat(message: string) {
+    this.placeholder = '';
     this.form.patchValue({ message: '' });
     this.messages.push({ local: true, message });
     this.lex.postText(

@@ -9,7 +9,7 @@
   </section>
   <form [formGroup]="form">
     <div class="input-group">
-      <input type="text" class="form-control" formControlName="message" />
+      <input [placeholder]="placeholder" type="text" class="form-control" formControlName="message" />
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit" (click)="chat(form.value.message)">Send</button>
       </span>
