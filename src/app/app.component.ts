@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as AWS from 'aws-sdk';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   lex: AWS.LexRuntime;
@@ -12,6 +13,13 @@ export class AppComponent implements OnInit {
   input = '';
   sessionAttributes: any = {};
   messages: Message[] = [];
+  form: FormGroup;
+
+  constructor(public fb: FormBuilder) {
+    this.form = this.fb.group({
+      message: this.fb.control('')
+    });
+  }
 
   ngOnInit() {
     // Initialize the Amazon Cognito credentials provider
@@ -23,6 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   chat(message: string) {
+    this.form.patchValue({ message: '' });
     this.messages.push({ source: 'user', message });
     this.lex.postText(
       {

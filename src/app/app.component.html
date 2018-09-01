@@ -1,6 +1,17 @@
-<div>
-  <p *ngFor="let message of messages">{{ message.source }}: {{ message.message }}</p>
-</div>
+<div class="chat-container d-flex flex-column">
+  <div class="messages d-flex flex-grow-1 justify-content-end flex-column">
+    <div class="bubble" *ngFor="let message of messages">
+      <span class="source">{{ message.source }}</span>
+      <span class="message">{{ message.message }}</span>
+    </div>
+  </div>
 
-<input [(ngModel)]="input" />
-<button placeholder="I have a great app idea!" (click)="chat(input)">Submit</button>
+  <form [formGroup]="form">
+    <div class="input-group">
+      <input type="text" class="form-control" formControlName="message" />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit" (click)="chat(form.value.message)">Send</button>
+      </span>
+    </div>
+  </form>
+</div>
