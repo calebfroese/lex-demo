@@ -12,20 +12,7 @@ export class AppComponent implements OnInit {
   boxUserId = 'chatbox-lex' + Date.now();
   input = '';
   sessionAttributes: any = {};
-  messages: Message[] = [
-    {
-      local: true,
-      message: 'I wanong woejn wojgtnw'
-    },
-    {
-      local: false,
-      message: 'ewrogunuwiopwen inw'
-    },
-    {
-      local: true,
-      message: 'wgnjrwjno2'
-    }
-  ];
+  messages: Message[] = [];
   form: FormGroup;
 
   constructor(public fb: FormBuilder) {
