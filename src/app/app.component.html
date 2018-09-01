@@ -1,4 +1,7 @@
-<p>{{ response }}</p>
+<div>
+  <p *ngFor="let message of messages">{{ message.source }}: {{ message.message }}</p>
+</div>
+
 <input [(ngModel)]="input" />
 {{ input }}
 <button placeholder="I have a great app idea!" (click)="chat(input)">Submit</button>

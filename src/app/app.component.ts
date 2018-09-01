@@ -9,9 +9,9 @@ import * as AWS from 'aws-sdk';
 export class AppComponent implements OnInit {
   lex: AWS.LexRuntime;
   boxUserId = 'chatbox-lex' + Date.now();
-  response = '';
   input = '';
   sessionAttributes: any = {};
+  messages: Message[] = [];
 
   ngOnInit() {
     // Initialize the Amazon Cognito credentials provider
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   chat(message: string) {
+    this.messages.push({ source: 'user', message });
     this.lex.postText(
       {
         botAlias: '$LATEST',
@@ -34,14 +35,14 @@ export class AppComponent implements OnInit {
       (err, data) => {
         if (data) {
           this.sessionAttributes = data.sessionAttributes;
-          console.log(this.sessionAttributes);
-          this.addResponse(data);
+          this.messages.push({ source: 'bot', message: data.message });
         }
       }
     );
   }
+}
 
-  addResponse(response: any) {
-    this.response = response.message;
-  }
+interface Message {
+  source: 'bot' | 'user';
+  message: string;
 }
