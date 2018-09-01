@@ -1,11 +1,12 @@
 <div class="chat-container d-flex flex-column">
-  <div class="messages d-flex flex-grow-1 justify-content-end flex-column">
-    <div class="bubble" *ngFor="let message of messages">
-      <span class="source">{{ message.source }}</span>
-      <span class="message">{{ message.message }}</span>
-    </div>
-  </div>
-
+  <section>
+    <ng-container *ngFor="let message of messages">
+      <div class="clear"></div>
+      <div [ngClass]="{'from-them': !message.local, 'from-me': message.local}">
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-container>
+  </section>
   <form [formGroup]="form">
     <div class="input-group">
       <input type="text" class="form-control" formControlName="message" />

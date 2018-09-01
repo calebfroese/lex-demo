@@ -12,7 +12,20 @@ export class AppComponent implements OnInit {
   boxUserId = 'chatbox-lex' + Date.now();
   input = '';
   sessionAttributes: any = {};
-  messages: Message[] = [];
+  messages: Message[] = [
+    {
+      local: true,
+      message: 'I wanong woejn wojgtnw'
+    },
+    {
+      local: false,
+      message: 'ewrogunuwiopwen inw'
+    },
+    {
+      local: true,
+      message: 'wgnjrwjno2'
+    }
+  ];
   form: FormGroup;
 
   constructor(public fb: FormBuilder) {
@@ -32,7 +45,7 @@ export class AppComponent implements OnInit {
 
   chat(message: string) {
     this.form.patchValue({ message: '' });
-    this.messages.push({ source: 'user', message });
+    this.messages.push({ local: true, message });
     this.lex.postText(
       {
         botAlias: '$LATEST',
@@ -44,7 +57,7 @@ export class AppComponent implements OnInit {
       (err, data) => {
         if (data) {
           this.sessionAttributes = data.sessionAttributes;
-          this.messages.push({ source: 'bot', message: data.message });
+          this.messages.push({ local: false, message: data.message });
         }
       }
     );
@@ -52,6 +65,6 @@ export class AppComponent implements OnInit {
 }
 
 interface Message {
-  source: 'bot' | 'user';
+  local: boolean;
   message: string;
 }
